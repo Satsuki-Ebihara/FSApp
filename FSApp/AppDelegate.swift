@@ -7,17 +7,26 @@
 
 import UIKit
 import CoreData
+import GoogleSignIn
+import Firebase
 
-@main
+@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        return true
-    }
+           // Override point for customization after application launch.
 
+           // Client IDを設定する
+           GIDSignIn.sharedInstance()?.clientID = "439371767490-ae4r2p8m0clhcjhnfnnia764rilb7lmo.apps.googleusercontent.com"
+           return true
+       }
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+            // GIDSignInのhandle()を呼び、返り値がtrueであればtrueを返す
+            if GIDSignIn.sharedInstance()!.handle(url) {
+                return true
+            }
+            return false
+        }
+    
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
@@ -31,6 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
+    
 
     // MARK: - Core Data stack
 
